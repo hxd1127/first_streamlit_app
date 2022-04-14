@@ -26,3 +26,5 @@ fruitvise_response =requests.get("https://fruityvice.com/api/fruit/"+fruit_input
 fruitvise_normalize =pandas.json_normalize(fruitvise_response.json())
 streamlit.dataframe(fruitvise_normalize)
 #streamlit.text(fruitvise_response.json())
+
+import snowflake.connector

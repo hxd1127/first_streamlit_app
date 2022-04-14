@@ -1,5 +1,6 @@
 import streamlit
 import pandas
+from urllib.error import URLError
 
 streamlit.title("My Parents New Healthy Dinner")
 streamlit.header('Breakfast Favorites')
@@ -18,13 +19,19 @@ fruits_to_show = my_fruit_list.loc[fruits_selected]
 streamlit.dataframe(fruits_to_show)
 
 streamlit.header('fruitvise fruit Advice')
-fruit_input=streamlit.text_input('What is fruit you want','Kiwi')
-streamlit.write(' the user input ', fruit_input)
+try:
+  fruit_input=streamlit.text_input('What is fruit you want')
+  if not fruit_input:
+    streamlit.error("please select a fruit to get information.")
+  else
+    fruitvise_response =requests.get("https://fruityvice.com/api/fruit/"+fruit_input)
+    fruitvise_normalize =pandas.json_normalize(fruitvise_response.json())
+    streamlit.dataframe(fruitvise_normalize)
+except URLError as e:
+  streamlit.error()
 
 import requests
-fruitvise_response =requests.get("https://fruityvice.com/api/fruit/"+fruit_input)
-fruitvise_normalize =pandas.json_normalize(fruitvise_response.json())
-streamlit.dataframe(fruitvise_normalize)
+
 #streamlit.text(fruitvise_response.json())
 
 streamlit.stop()

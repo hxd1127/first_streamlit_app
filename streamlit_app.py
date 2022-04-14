@@ -1,5 +1,6 @@
 import streamlit
 import pandas
+import requests
 from urllib.error import URLError
 
 streamlit.title("My Parents New Healthy Dinner")
@@ -32,7 +33,7 @@ try:
 except URLError as e:
   streamlit.error()
 
-import requests
+
 
 #streamlit.text(fruitvise_response.json())
 
